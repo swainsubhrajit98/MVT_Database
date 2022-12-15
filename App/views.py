@@ -45,3 +45,23 @@ def display_access(request):
     
     d={'LARO':LARO}
     return render(request,'display_access.html',d)
+
+
+def update_webpage(request):
+    # Webpage.objects.filter(topic_name='Cricket').update(name='Mahes')
+    Webpage.objects.update_or_create(name='Papu',defaults={'url':'https://python.in'})
+    T = Topic.objects.get_or_create(topic_name='Cricket')[0]
+    T.save()
+    Webpage.objects.update_or_create(name='ABD', defaults={'topic_name': T, 'url': 'https://ABD.in'})
+    LWO=Webpage.objects.all()
+    d={'LWO':LWO}
+    return render(request,'display_webpage.html',d)  
+
+
+def delete_webpage(request):
+    #Webpage.objects.filter(topic_name='Cricket').delete()
+    
+    # Webpage.objects.all().delete()
+    LWO=Webpage.objects.all()
+    d={'LWO':LWO}
+    return render(request,'display_webpage.html',d)  
